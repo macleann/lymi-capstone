@@ -9,17 +9,20 @@ import { ApplicationViews } from "./views/ApplicationViews";
 export const LYMI = () => {
   return (
     <GodProvider>
-        <Routes>
+      <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="*" element={
-                <>
-                    <NavBar />
-                    <ApplicationViews />
-                    <Footer/>
-                </>
-        } />
-        </Routes>
+        <Route
+          path="*"
+          element={
+            <>
+              <NavBar />
+              <ApplicationViews />
+              <Footer />
+            </>
+          }
+        />
+      </Routes>
     </GodProvider>
   );
 };
