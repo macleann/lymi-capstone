@@ -8,7 +8,7 @@ export const NavBar = () => {
   return (
     <ul>
       <li>
-        <Link to="/home">Home</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
         <Link to="/calendar">Calendar</Link>
@@ -30,6 +30,7 @@ export const NavBar = () => {
             onClick={() => {
               localStorage.removeItem("lymi_user");
               navigate("/", { replace: true });
+              window.alert("You've been logged out.")
             }}
           >
             Logout

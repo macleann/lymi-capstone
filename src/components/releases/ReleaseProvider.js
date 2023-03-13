@@ -19,7 +19,7 @@ export const ReleaseProvider = (props) => {
 
   const getRecentReleases = () => {
     return fetch(
-      `http://localhost:8088/releases?_expand=band&_sort=releaseDate&_order=asc&_limit=10`
+      `http://localhost:8088/releases?_expand=band&_sort=releaseDate&_order=desc&_limit=10`
     ).then((response) => response.json());
   };
 

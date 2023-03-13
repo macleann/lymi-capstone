@@ -10,7 +10,7 @@ export const FanViews = () => {
     <>
       <Routes>
         <Route path="/" element={<Outlet />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/calendar" element={<ShowsCalendar />} />
           <Route path="/show/:showId" element={<ShowDetail />} />
           <Route path="/roster" element={<Roster />} />

@@ -27,6 +27,17 @@ export const CalendarProvider = (props) => {
     }).then((response) => response.json());
   };
 
+  const putUpdatedShow = (show) => {
+    return fetch(`http://localhost:8088/shows/${show.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(show)
+    })
+      .then(response => response.json())
+  }
+
   const deleteShow = (showId) => {
     return fetch(`http://localhost:8088/shows/${showId}`, {
       method: "DELETE",
@@ -35,7 +46,7 @@ export const CalendarProvider = (props) => {
 
   return (
     <CalendarContext.Provider
-      value={{ getShows, shows, postNewShow, getShowById, deleteShow }}
+      value={{ shows, setShows, getShows, getShowById, postNewShow, putUpdatedShow, deleteShow }}
     >
       {props.children}
     </CalendarContext.Provider>

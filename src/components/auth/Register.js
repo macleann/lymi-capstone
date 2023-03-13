@@ -8,7 +8,7 @@ export const Register = (props) => {
     name: "",
     password: "",
   });
-  const { postNewUser, getUserById } = useContext(AuthContext);
+  const { postNewUser, getUserByEmail } = useContext(AuthContext);
   let navigate = useNavigate();
 
   const registerNewUser = () => {
@@ -28,8 +28,7 @@ export const Register = (props) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    return fetch(`http://localhost:8088/users?email=${user.email}`)
-      .then((res) => res.json())
+    return getUserByEmail(user.email)
       .then((response) => {
         if (response.length > 0) {
           // Duplicate email. No good.
