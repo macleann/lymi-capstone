@@ -1,5 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import { AddShow } from "../calendar/AddShow";
+import { ShowForm } from "../calendar/ShowForm";
 import { ShowsCalendar } from "../calendar/Calendar";
 import { ShowDetail } from "../calendar/ShowDetail";
 import { Home } from "../home/Home";
@@ -16,10 +16,11 @@ export const ArtistViews = ({ currentUser }) => {
     <>
       <Routes>
         <Route path="/" element={<Outlet />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/calendar" element={<ShowsCalendar />} />
           <Route path="/show/:showId" element={<ShowDetail />} />
-          <Route path="/show/add" element={<AddShow />} />
+          <Route path="/show/add" element={<ShowForm />} />
+          <Route path="/show/:showId/edit" element={<ShowForm />} />
           <Route path="/roster" element={<Roster />} />
           <Route path="/roster/band/:id" element={<BandDetail />} />
           <Route

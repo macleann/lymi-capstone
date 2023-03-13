@@ -31,7 +31,7 @@ export const BandDetail = () => {
     const lymiUserObject = JSON.parse(localLymiUser);
 
     if (lymiUserObject?.isArtist) {
-      if (band.artistBands.find((aB) => aB.userId === lymiUserObject.id)) {
+      if (band.artistBands.find((aB) => aB.userId === lymiUserObject.id) || lymiUserObject?.isAdmin) {
         return button;
       }
     }

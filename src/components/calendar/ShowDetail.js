@@ -42,6 +42,18 @@ export const ShowDetail = () => {
     }
   };
 
+  // The Edit Show Button
+  const editButton = (
+    <button
+      onClick={(evt) => {
+        evt.preventDefault();
+        navigate(`/show/${show.id}/edit`)
+      }}
+    >
+      Edit Show
+    </button>
+  )
+
   // The Delete Show button
   const deleteButton = (
     <button
@@ -67,10 +79,16 @@ export const ShowDetail = () => {
       <div>
         {show?.date} at {show?.time}
       </div>
-      <a href={`https://${show?.ticketLink}`}>Ticket Link</a>
+      <div>
+        {(show.price).toLocaleString("en-US", {style: "currency", currency: "USD"})}
+      </div>
+      <a href={`https://${show?.ticketLink}`}>Get Tickets</a>
       <div>
         <AdvancedImage cldImg={showPoster} />
       </div>
+      {
+        checkIfArtistInBand(editButton)
+      }
       {
         checkIfArtistInBand(deleteButton)
       }

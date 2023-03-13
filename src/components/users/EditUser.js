@@ -4,7 +4,11 @@ import { AuthContext } from "../auth/AuthProvider";
 
 export const EditUser = () => {
   const { getUserById, putUpdatedUser } = useContext(AuthContext);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    name: "",
+    isArtist: false,
+    isAdmin: false
+  });
   const { userId } = useParams();
   const navigate = useNavigate();
 
