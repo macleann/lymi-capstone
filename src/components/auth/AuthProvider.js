@@ -17,6 +17,12 @@ export const AuthProvider = (props) => {
     );
   };
 
+  const getUserByEmail = (email) => {
+    return fetch(`http://localhost:8088/users?email=${email}`).then((response) =>
+      response.json()
+    );
+  };
+
   const getUserForLogin = (email, password) => {
     return fetch(
       `http://localhost:8088/users?email=${email}&password=${password}`
@@ -50,6 +56,7 @@ export const AuthProvider = (props) => {
         setUsers,
         getUsers,
         getUserById,
+        getUserByEmail,
         getUserForLogin,
         postNewUser,
         putUpdatedUser,

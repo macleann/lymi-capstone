@@ -24,7 +24,7 @@ export const Login = () => {
           })
         );
 
-        navigate("/home");
+        navigate("/");
       } else {
         window.alert("Invalid login");
       }

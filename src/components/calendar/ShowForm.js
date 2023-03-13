@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UploadWidget } from "../cloudinary/UploadWidget";
 import { RosterContext } from "../roster/RosterProvider";
 import { CalendarContext } from "./CalendarProvider";
 
-export const AddShow = () => {
-  const { postNewShow } = useContext(CalendarContext);
+export const ShowForm = () => {
+  const { getShowById, postNewShow, putUpdatedShow } = useContext(CalendarContext);
   const { bands, setBands, getBands } = useContext(RosterContext)
   const [filteredBands, setFilteredBands] = useState([])
   const [show, setShow] = useState({
@@ -17,11 +17,16 @@ export const AddShow = () => {
     ticketLink: "",
     image: {},
   });
+  const {showId} = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     getBands()
         .then(res => setBands(res))
+    if (showId) {
+      getShowById(showId)
+        .then(res => setShow(res))
+    }
   }, [])
 
   useEffect(() => {
@@ -38,17 +43,25 @@ export const AddShow = () => {
   const handleSaveButtonClick = (evt) => {
     evt.preventDefault();
 
+    if (showId) {
+      return putUpdatedShow(show).then(() => navigate(`/show/${showId}`))
+    } else {
     return postNewShow(show).then(() => navigate("/calendar"));
+    }
   };
 
   return (
     <>
       <form>
-        <h2>Add Event: </h2>
+        {
+          showId ?
+          <h2>Edit Event:</h2>
+          : <h2>Add Event: </h2>
+        }
         <fieldset>
           <div className="form-group">
             <label htmlFor="band">Band: </label>
-            <select id="band" onChange={(evt) => {
+            <select id="band" value={show.bandId} onChange={(evt) => {
                 const copy = {...show}
                 copy.bandId = parseInt(evt.target.value)
                 setShow(copy)
@@ -66,6 +79,7 @@ export const AddShow = () => {
           <div className="form-group">
             <label htmlFor="venue">Venue: </label>
             <input
+              required
               type="text"
               className="form-control"
               value={show.venue}
@@ -81,6 +95,7 @@ export const AddShow = () => {
           <div className="form-group">
             <label htmlFor="date">Date: </label>
             <input
+              required
               type="date"
               className="form-control"
               value={show.date}
@@ -96,6 +111,7 @@ export const AddShow = () => {
           <div className="form-group">
             <label htmlFor="time">Time: </label>
             <input
+              required
               type="time"
               className="form-control"
               value={show.time}
@@ -107,10 +123,12 @@ export const AddShow = () => {
             />
           </div>
         </fieldset>
+        {/* CONSIDER ADDING A FREE? CHECKBOX FOR PRICE HERE */}
         <fieldset>
           <div className="form-group">
             <label htmlFor="price">Price: </label>
             <input
+              required
               type="number"
               className="form-control"
               value={show.price}
@@ -153,7 +171,11 @@ export const AddShow = () => {
           onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
           className="btn btn-primary"
         >
-          Add Event
+        {
+          showId ?
+          <>Edit Event</>
+          : <>Add Event: </>
+        }
         </button>
       </form>
     </>
