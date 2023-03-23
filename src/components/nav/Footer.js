@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <footer>
-      <div>Social Icons:</div>
+      <div className="p-4">Social Icons:</div>
     </footer>
   );
 };

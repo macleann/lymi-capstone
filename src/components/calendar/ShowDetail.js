@@ -7,28 +7,27 @@ import { RosterContext } from "../roster/RosterProvider";
 
 export const ShowDetail = () => {
   const { getShowById, deleteShow } = useContext(CalendarContext);
-  const { getBandById } = useContext(RosterContext)
-  const { setImageAndWidth } = useContext(CldContext);
+  const { getBandById } = useContext(RosterContext);
+  const { setImageAndSize } = useContext(CldContext);
   const { showId } = useParams();
   const [show, setShow] = useState({});
-  const [band, setBand] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
-  const navigate = useNavigate()
+  const [band, setBand] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getShowById(showId)
-        .then(res => setShow(res))
+    getShowById(showId).then((res) => setShow(res));
   }, [showId]);
 
   useEffect(() => {
     if (show.bandId) {
-        getBandById(show.bandId)
-            .then(res => setBand(res))
-            .then(() => setIsLoading(false))
+      getBandById(show.bandId)
+        .then((res) => setBand(res))
+        .then(() => setIsLoading(false));
     }
-  }, [show])
+  }, [show]);
 
-  const showPoster = setImageAndWidth(show?.image?.publicId, 250);
+  const showPoster = setImageAndSize(show?.image?.publicId, 500);
 
   // Only renders the parameter if the current user is an artist and is in the band
   const checkIfArtistInBand = (button) => {
@@ -47,12 +46,12 @@ export const ShowDetail = () => {
     <button
       onClick={(evt) => {
         evt.preventDefault();
-        navigate(`/show/${show.id}/edit`)
+        navigate(`/show/${show.id}/edit`);
       }}
     >
       Edit Show
     </button>
-  )
+  );
 
   // The Delete Show button
   const deleteButton = (
@@ -60,7 +59,7 @@ export const ShowDetail = () => {
       onClick={(evt) => {
         evt.preventDefault();
         deleteShow(show.id);
-        navigate("/calendar")
+        navigate("/calendar");
       }}
     >
       Delete Show
@@ -68,30 +67,45 @@ export const ShowDetail = () => {
   );
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <p>Loading...</p>;
   }
   return (
     <>
-      <h1>
-        {show?.band?.name} at {show?.venue}
-      </h1>
-      <h2>Show's id: {show?.id}</h2>
-      <div>
-        {show?.date} at {show?.time}
+      <div className="flex flex-col justify-center mt-4">
+        <h1 className="pb-4 text-3xl text-center">
+          {show?.band?.name} at {show?.venue}
+        </h1>
+        <div className="flex justify-center">
+          <div className="w-1/2 pr-4 pl-8"><AdvancedImage cldImg={showPoster} /></div>
+          <div className="w-1/2 flex-col justify-start pl-4 pr-8">
+            <div className="text-xl">
+              {`${new Date(show?.date).toDateString("en-US", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })} at 
+              ${new Date(`2020-01-01T${show?.time}`).toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}`}
+            </div>
+            <div>
+              {show.price.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </div>
+            <a href={`//${show?.ticketLink}`}>Get Tickets</a>
+            <div className="flex justify-center">
+              <div className="btn-primary m-4">{checkIfArtistInBand(editButton)}</div>
+              <div className="btn-primary m-4">{checkIfArtistInBand(deleteButton)}</div>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <div>
-        {(show.price).toLocaleString("en-US", {style: "currency", currency: "USD"})}
-      </div>
-      <a href={`https://${show?.ticketLink}`}>Get Tickets</a>
-      <div>
-        <AdvancedImage cldImg={showPoster} />
-      </div>
-      {
-        checkIfArtistInBand(editButton)
-      }
-      {
-        checkIfArtistInBand(deleteButton)
-      }
     </>
   );
 };

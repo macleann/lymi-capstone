@@ -1,30 +1,36 @@
+import { AdvancedImage } from "@cloudinary/react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { CldContext } from "../cloudinary/CloudinaryProvider";
 
 export const NavBar = () => {
+  const { setImageAndSize } = useContext(CldContext);
   const navigate = useNavigate();
   const localLymiUser = localStorage.getItem("lymi_user");
   const lymiUserObject = JSON.parse(localLymiUser);
 
+  const logo = setImageAndSize("lymi/logo", 60);
+
   return (
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
+    <ul className="flex items-center">
+      <li className="p-3 font-bold hover:underline decoration-wavy">
+        <Link to="/"><AdvancedImage cldImg={logo} /></Link>
       </li>
-      <li>
+      <li className="p-3 font-bold hover:underline decoration-wavy">
         <Link to="/calendar">Calendar</Link>
       </li>
-      <li>
+      <li className="p-3 font-bold hover:underline decoration-wavy">
         <Link to="/roster">Roster</Link>
       </li>
       {lymiUserObject?.isAdmin ? (
-        <li>
+        <li className="p-3 font-bold hover:underline decoration-wavy">
           <Link to="/users">Users</Link>
         </li>
       ) : (
         ""
       )}
       {localStorage.getItem("lymi_user") ? (
-        <li>
+        <li className="ml-auto mr-2 p-3 font-bold hover:underline decoration-wavy">
           <Link
             to=""
             onClick={() => {
@@ -37,7 +43,7 @@ export const NavBar = () => {
           </Link>
         </li>
       ) : (
-        <li>
+        <li className="ml-auto mr-2 p-3 font-bold hover:underline decoration-wavy">
           <Link to="/login">Login</Link>
         </li>
       )}
