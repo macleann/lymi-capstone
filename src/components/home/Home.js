@@ -12,16 +12,19 @@ export const Home = () => {
 
   return (
     <>
-      <h1>Recent Releases</h1>
-      {releases.map((release) => (
-        <ReleaseDetailHome key={`release--${release.id}`} release={release} />
-      ))}
-      <iframe
-        src="https://likeyoumeanit.substack.com/embed"
-        width="50%"
-        height={320}
-        style={{ border: "1px solid #EEE", background: "white" }}
-      ></iframe>
+      <h1 className="mt-5 text-3xl text-center">Recent Releases</h1>
+      <div className="mt-5 flex flex-wrap">
+        {releases.map((release) => (
+          <ReleaseDetailHome key={`release--${release.id}`} release={release}/>
+        ))}
+      </div>
+      <div className="flex justify-center items-center">
+        <iframe
+          src="https://likeyoumeanit.substack.com/embed"
+          width="25%"
+          height={200}
+        ></iframe>
+      </div>
     </>
   );
 };

@@ -11,10 +11,10 @@ export const Users = () => {
 
   return (
     <>
-      <ul>
+      <ul className="flex flex-col">
         {users.map((user) => {
           return (
-            <li key={`user--${user.id}`}>
+            <li className="btn-primary m-4 w-fit" key={`user--${user.id}`}>
               <Link to={`/user/${user.id}/edit`}>{user.name}</Link>
             </li>
           );

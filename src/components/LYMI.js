@@ -16,9 +16,17 @@ export const LYMI = () => {
           path="*"
           element={
             <>
-              <NavBar />
-              <ApplicationViews />
-              <Footer />
+              <div className="flex flex-col min-h-screen">
+                <nav className="sticky top-0 z-50 bg-white/50 backdrop-blur-md">
+                  <NavBar />
+                </nav>
+                <div className="relative flex-grow pb-24">
+                  <ApplicationViews />
+                </div>
+                <footer className="fixed bottom-0 w-full bg-white/50 backdrop-blur-md">
+                  <Footer />
+                </footer>
+              </div>
             </>
           }
         />

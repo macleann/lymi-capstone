@@ -12,16 +12,21 @@ export const CloudinaryProvider = (props) => {
     },
   });
 
-  const setImageAndWidth = (image, width) => {
+  const setImageAndSize = (image, width, height) => {
     // Instantiate a CloudinaryImage object for the image with the specified public ID.
     const myImage = cld.image(`${image}`);
+
+    // If height is specified
+    if (height) {
+      return myImage.resize(fill().width(width).height(height));
+    }
 
     // Resize specified width in pixels using the 'fill' crop mode.
     return myImage.resize(fill().width(width));
   };
 
   return (
-    <CldContext.Provider value={{ cld, setImageAndWidth }}>
+    <CldContext.Provider value={{ cld, setImageAndSize }}>
       {props.children}
     </CldContext.Provider>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export const UploadWidget = ({ onUploadSuccess }) => {
+export const UploadWidget = ({ onUploadSuccess, setAlt, setPublicId, disabled }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
@@ -10,12 +10,13 @@ export const UploadWidget = ({ onUploadSuccess }) => {
       {
         cloudName: "dnq0umskc",
         uploadPreset: "test_test",
+        publicId: setPublicId,
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
           const imageData = {
             url: result.info.secure_url,
-            alt: `An image of ${result.info.original_filename}`,
+            alt: setAlt,
             publicId: result.info.public_id,
           };
           onUploadSuccess(imageData);
@@ -25,7 +26,15 @@ export const UploadWidget = ({ onUploadSuccess }) => {
   }, [onUploadSuccess]);
 
   return (
-    <button type="button" onClick={() => widgetRef.current.open()}>
+    <button
+      type="button"
+      className={`btn-primary ${disabled ? "btn-primary-disabled" : ""}`}
+      onClick={() => {
+        if (!disabled) {
+          widgetRef.current.open()
+        }
+      }}
+    >
       Upload
     </button>
   );
