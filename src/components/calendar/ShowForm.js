@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { UploadWidget } from "../cloudinary/UploadWidget";
+import { UploadImageWidget } from "../cloudinary/UploadImageWidget";
 import { RosterContext } from "../roster/RosterProvider";
 import { CalendarContext } from "./CalendarProvider";
 
@@ -213,7 +213,7 @@ export const ShowForm = () => {
         </div>
         <div className="relative mb-6">
           <label>Poster: </label>
-          <UploadWidget
+          <UploadImageWidget
             onUploadSuccess={(imageData) => {
               const copy = { ...show };
               copy.image = imageData;

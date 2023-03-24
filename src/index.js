@@ -4,6 +4,9 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { LYMI } from './components/LYMI';
 import { BrowserRouter } from 'react-router-dom';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -4,6 +4,7 @@ import { AdvancedImage } from "@cloudinary/react";
 import { CalendarContext } from "./CalendarProvider";
 import { CldContext } from "../cloudinary/CloudinaryProvider";
 import { RosterContext } from "../roster/RosterProvider";
+import moment from "moment";
 
 export const ShowDetail = () => {
   const { getShowById, deleteShow } = useContext(CalendarContext);
@@ -76,20 +77,13 @@ export const ShowDetail = () => {
           {show?.band?.name} at {show?.venue}
         </h1>
         <div className="flex justify-center">
-          <div className="w-1/2 pr-4 pl-8"><AdvancedImage cldImg={showPoster} /></div>
+          <div className="w-1/2 pr-4 pl-8">
+            <AdvancedImage cldImg={showPoster} />
+          </div>
           <div className="w-1/2 flex-col justify-start pl-4 pr-8">
             <div className="text-xl">
-              {`${new Date(show?.date).toDateString("en-US", {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })} at 
-              ${new Date(`2020-01-01T${show?.time}`).toLocaleTimeString([], {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })}`}
+              {moment(show?.date).format("dddd, MMMM D, YYYY")} at{" "}
+              {moment(show?.time, "HH:mm").format("h:mm A")}
             </div>
             <div>
               {show.price.toLocaleString("en-US", {
@@ -99,12 +93,15 @@ export const ShowDetail = () => {
             </div>
             <a href={`//${show?.ticketLink}`}>Get Tickets</a>
             <div className="flex justify-center">
-              <div className="btn-primary m-4">{checkIfArtistInBand(editButton)}</div>
-              <div className="btn-primary m-4">{checkIfArtistInBand(deleteButton)}</div>
+              <div className="btn-primary m-4">
+                {checkIfArtistInBand(editButton)}
+              </div>
+              <div className="btn-primary m-4">
+                {checkIfArtistInBand(deleteButton)}
+              </div>
             </div>
           </div>
         </div>
-        
       </div>
     </>
   );

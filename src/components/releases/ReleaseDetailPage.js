@@ -4,9 +4,12 @@ import { useNavigate, useParams } from "react-router-dom"
 import { CldContext } from "../cloudinary/CloudinaryProvider"
 import { RosterContext } from "../roster/RosterProvider"
 import { ReleaseContext } from "./ReleaseProvider"
+import { SongContext } from "../songs/SongProvider";
+import { MusicPlayer } from '../musicPlayer/MusicPlayer'
 
 export const ReleaseDetailPage = () => {
     const { getReleaseById } = useContext(ReleaseContext)
+    const { songs, setSongs, releaseSongs, setReleaseSongs, getReleaseSongsByRelease} = useContext(SongContext)
     const { getBandById } = useContext(RosterContext);
     const { setImageAndSize } = useContext(CldContext);
     const [band, setBand] = useState({});
@@ -18,6 +21,11 @@ export const ReleaseDetailPage = () => {
     useEffect(() => {
         getReleaseById(releaseId)
             .then(res => setRelease(res))
+        getReleaseSongsByRelease(releaseId)
+            .then((res) => {
+                setReleaseSongs(res);
+                setSongs(res.map((rS) => rS.song))
+            })
     }, [])
 
     useEffect(() => {
@@ -67,7 +75,7 @@ export const ReleaseDetailPage = () => {
             <div className="flex justify-center mt-4">
                 <div className="w-1/2 pr-4 pl-8"><AdvancedImage cldImg={albumImage} /></div>
                 <div className="w-1/2 flex-col justify-start pl-4 pr-8">
-
+                    <MusicPlayer tracks={songs} />
                 </div>
             </div>
         </div>
