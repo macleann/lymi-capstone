@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { UploadWidget } from "../cloudinary/UploadWidget";
+import { UploadImageWidget } from "../cloudinary/UploadImageWidget";
 import { RosterContext } from "./RosterProvider";
 
 export const BandForm = () => {
@@ -103,7 +103,7 @@ export const BandForm = () => {
 
         <div className="mb-6">
           <label className="block mb-2">Band Photo: </label>
-          <UploadWidget
+          <UploadImageWidget
             id="image"
             className="justify-end"
             onUploadSuccess={(imageData) => {

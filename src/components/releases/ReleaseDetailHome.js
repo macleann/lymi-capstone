@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CldContext } from "../cloudinary/CloudinaryProvider";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export const ReleaseDetailHome = ({ release }) => {
   const { setImageAndSize } = useContext(CldContext);
@@ -35,11 +36,7 @@ export const ReleaseDetailHome = ({ release }) => {
         <div className="mt-1 text-s">
           {release.releaseType.type}
           {" - "}
-          {new Date(release.releaseDate).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
+          {moment(release.releaseDate).format("MMMM D, YYYY")}
         </div>
       </div>
     </>

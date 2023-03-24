@@ -13,8 +13,8 @@ export const NavBar = () => {
 
   return (
     <ul className="flex items-center">
-      <li className="p-3 font-bold hover:underline decoration-wavy">
-        <Link to="/"><AdvancedImage cldImg={logo} /></Link>
+      <li className="p-3">
+        <Link to="/"><AdvancedImage cldImg={logo} className="pop-out" /></Link>
       </li>
       <li className="p-3 font-bold hover:underline decoration-wavy">
         <Link to="/calendar">Calendar</Link>

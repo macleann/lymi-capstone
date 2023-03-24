@@ -15,7 +15,8 @@
 
   .pop-out {
     @apply transform transition-transform duration-300 ease-out;
-    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   .pop-out:hover {

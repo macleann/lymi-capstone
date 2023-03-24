@@ -619,8 +619,9 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
 
 .pop-out:hover{
@@ -712,6 +713,10 @@ video {
   position: fixed;
 }
 
+.absolute{
+  position: absolute;
+}
+
 .relative{
   position: relative;
 }
@@ -749,6 +754,11 @@ video {
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
+}
+
+.my-1{
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .my-4{
@@ -922,8 +932,20 @@ video {
   border-style: none;
 }
 
+.bg-white\/20{
+  background-color: rgb(255 255 255 / 0.2);
+}
+
+.bg-white\/40{
+  background-color: rgb(255 255 255 / 0.4);
+}
+
 .bg-white\/50{
   background-color: rgb(255 255 255 / 0.5);
+}
+
+.p-1{
+  padding: 0.25rem;
 }
 
 .p-3{
@@ -1001,6 +1023,10 @@ video {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.outline{
+  outline-style: solid;
 }
 
 .filter{

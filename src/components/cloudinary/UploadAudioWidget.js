@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export const UploadWidget = ({ onUploadSuccess, setAlt, setPublicId, disabled }) => {
+export const UploadAudioWidget = ({ onUploadSuccess, setPublicId, disabled }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
@@ -9,17 +9,20 @@ export const UploadWidget = ({ onUploadSuccess, setAlt, setPublicId, disabled })
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
         cloudName: "dnq0umskc",
-        uploadPreset: "test_test",
+        uploadPreset: "lymi_audio",
         publicId: setPublicId,
+        sources: ['local', 'google_drive', 'dropbox'],
+        acceptedFiles: "audio/*",
+        multiple: false
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
-          const imageData = {
+          const audioData = {
             url: result.info.secure_url,
-            alt: setAlt,
             publicId: result.info.public_id,
+            duration: result.info.duration
           };
-          onUploadSuccess(imageData);
+          onUploadSuccess(audioData);
         }
       }
     );

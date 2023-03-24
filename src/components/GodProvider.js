@@ -4,6 +4,7 @@ import { CloudinaryProvider } from "./cloudinary/CloudinaryProvider";
 import { PaletteProvider } from "./palette/PaletteProvider";
 import { ReleaseProvider } from "./releases/ReleaseProvider";
 import { RosterProvider } from "./roster/RosterProvider";
+import { SongProvider } from "./songs/SongProvider";
 
 export const GodProvider = (props) => {
   return (
@@ -13,7 +14,11 @@ export const GodProvider = (props) => {
           <RosterProvider>
             <ReleaseProvider>
               <PaletteProvider>
-                <CloudinaryProvider>{props.children}</CloudinaryProvider>
+                <SongProvider>
+                  <CloudinaryProvider>
+                    {props.children}
+                  </CloudinaryProvider>
+                </SongProvider>
               </PaletteProvider>
             </ReleaseProvider>
           </RosterProvider>
